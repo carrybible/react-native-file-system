@@ -1,0 +1,23 @@
+{
+  "name": "@carrybible/react-native-file-system",
+  "version": "0.0.1",
+  "description": "React Native File System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "file-system"
+  ],
+  "author": "",
+  "license": "",
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-native": ">=0.59.0"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.102.0",
+    "prettier": "^1.18.2"
+  }
+}
