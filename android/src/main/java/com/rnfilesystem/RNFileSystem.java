@@ -236,6 +236,45 @@ public class RNFileSystem extends ReactContextBaseJavaModule {
     }
   }
 
+  @ReactMethod
+  public void copyFile(final String filepath, final String destPath, ReadableMap options, final Promise promise) {
+    new CopyFileTask() {
+      @Override
+      protected void onPostExecute (Exception ex) {
+        if (ex == null) {
+          promise.resolve(null);
+        } else {
+          ex.printStackTrace();
+          reject(promise, filepath, ex);
+        }
+      }
+    }.execute(filepath, destPath);
+  }
+
+  private class CopyFileTask extends AsyncTask<String, Void, Exception> {
+    protected Exception doInBackground(String... paths) {
+      try {
+        String filepath = paths[0];
+        String destPath = paths[1];
+
+        InputStream in = getInputStream(filepath);
+        OutputStream out = getOutputStream(destPath, false);
+
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = in.read(buffer)) > 0) {
+          out.write(buffer, 0, length);
+          Thread.yield();
+        }
+        in.close();
+        out.close();
+        return null;
+      } catch (Exception ex) {
+        return ex;
+      }
+    }
+  }
+
   /**
    * write file
    */
